@@ -1,0 +1,236 @@
+swagger: '2.0'
+info:
+  description: "Quetions and Answers"
+  version: '1.0'
+  title: Feedback Questions
+host: "local"
+basePath: "/fb"
+schemes: 
+  - http
+paths:
+  '/feedbacks/{eventId}':
+    get:
+      tags:
+        - Feedbacks
+      summary: Get  Feedbacks
+      description: Get the Feedbacks for the Events
+      operationId: getFeedback
+      produces:
+        - application/json
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Feedback'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+  /feedbacks:
+    post:
+      tags:
+        - Feedbacks
+      summary: Add Feedbacks
+      description: Add Feedbacks to theEvent 
+      operationId: addFeedbacks
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/Feedback'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Feedback'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/Add-question':
+    post:
+      tags:
+        - Question and Answers
+      summary: Add Question and Answers
+      description: Add Question and Answersto theEvent 
+      operationId: addQA
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/Questions'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Questions'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /Edit-question/{questionId}:
+    get:
+      tags:
+        - Question and Answers
+      summary: Get  Question and Answers
+      description: Get the Question and Answers for the Events
+      operationId: getQA
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Questions'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+    delete:
+      tags:
+        - Question and Answers
+      summary: delete  Question and Answers
+      description: delete the Question and Answers for the Events
+      operationId: removeQA
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Questions'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+    put:
+      tags:
+        - Question and Answers
+      summary: Modify Question and Answers
+      description: Modify Question and Answersto theEvent 
+      operationId: updateQA
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: "path"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/Questions'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Questions'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+    Feedback:        
+      properties:
+        ParticipatedFeedBack:
+          $ref: '#/definitions/ParticipatedFeedBack'
+        NotParticipated:
+          $ref: '#/definitions/NotParticipatedFeedBack'
+        Unregistered:
+          $ref: '#/definitions/UnRegisteredFeedback'
+          
+    ParticipatedFeedBack:
+      properties:
+        likes:
+          type: string
+        dislike:
+          type: string
+        rating:
+          type: string
+        event_event_id:
+          type: string
+    
+    NotParticipatedFeedBack:
+      properties:
+        comment:
+          type: string
+        event_event_id:
+          type: string
+    UnRegisteredFeedback:
+      properties:
+        comment:
+          type: string
+        event_event_id:
+          type: string 
+    Questions:
+      properties:
+        id:
+          type: integer
+        question:
+          type: string
+        fb_type:
+          type: string
+        answers:
+          $ref: '#/definitions/Answers'
+          
+    Answers:
+      properties:
+        id:
+          type: integer
+        answers:
+          type: string
+        questions_id:
+          type: integer

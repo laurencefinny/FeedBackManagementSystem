@@ -1,0 +1,149 @@
+swagger: "2.0"
+info:
+  description: "USER DETAILS"
+  version: "1.0.0"
+  title: "authentication"
+basePath: "/fms"
+paths:
+  /users:
+     get:
+      tags:
+      - "User Details"
+      summary: "Get total users on clicking view"
+      description: "All the users are listed when clicked on view after login"
+      operationId: "allUsers"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        400:
+          description: "Invalid status value"
+        404:
+          description: "Page not found"
+     post:
+      tags:
+      - "User Details"
+      summary: "Add a new user"
+      description: ""
+      operationId: "addUser"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+              $ref: "#/definitions/User"
+        400:
+          description: "Invalid status value"
+        404:
+          description: "Page not found"
+  '/users/{userId}':
+     get:
+      tags:
+      - "User Details"
+      summary: "Get the specific user detail"
+      description: "The user detail listed are depending upon the id selected"
+      operationId: "getByUserId"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+              $ref: "#/definitions/User"
+        400:
+          description: "Invalid status value"
+        404:
+          description: "Page not found"
+ 
+     delete:
+      tags:
+        - "User Details"
+      summary: delete user details
+      description: delete the details of specificed user
+      operationId: removeUser
+      produces:
+        - application/json
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+definitions:
+  User:
+    type: "object"
+    required:
+    - "Id"
+    - "firstname"
+    - "lastname"
+    - "empId"
+    - "password"
+    properties:
+      Id:
+        type: "integer"
+      firstname:
+        type: "string"
+      lastname:
+        type: "string"
+      empId:
+        type: "string"
+      password:
+       type: "string"
+   
+    xml:
+      name: "User"
+  
+  Role:
+    type: "object"
+    required:
+    - "Id"
+    - "rolename"
+    properties:
+      Id:
+        type: "integer"
+      rolename:
+        type: "string"
+      
+    xml:
+      name: "User"

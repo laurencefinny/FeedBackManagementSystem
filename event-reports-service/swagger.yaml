@@ -1,0 +1,428 @@
+swagger: '2.0'
+info:
+  description: "Events & Reports"
+  version: '1.0'
+  title: Events
+host: "local"
+basePath: "/events"
+schemes: 
+  - http
+paths:
+  /dashboard:
+    get:
+      tags:
+        - Dashboard
+      summary: Get Dashboard
+      description: Get the Details of All Events
+      operationId: getDashboard
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            $ref: '#/definitions/Event'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+  /eventReport:
+    post:
+      tags:
+        - EventReport
+      summary: Add Event Report
+      description: Add the Event Information to Database
+      operationId: addEventReport
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/EventReport'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EventReport'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    get:
+      tags:
+        - EventReport
+      summary: Get Event Report
+      description: Get the Details of All Event Reports
+      operationId: getAllEventReport
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EventReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false 
+  '/eventReport/{eventReportId}':
+    get:
+      tags:
+        - EventReport
+      summary: Get Event Report by Id
+      description: Provide an Id to look up for specific event Report
+      operationId: getEventReportById
+      produces:
+        - application/json
+      parameters:
+        - name: eventReportId
+          in: path
+          required: true
+          type: String
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EventReport'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/event':    
+    post:
+      tags:
+        - Event
+      summary: Add Event
+      description: Add the Event Summary to Database
+      operationId: addEvent
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    get:
+      tags:
+        - Event
+      summary: Get Event 
+      description: Get the Details of All Events
+      operationId: getAllEvent
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+      
+  '/event/{eventId}':
+    get:
+      tags:
+        - Event
+      summary: Get Event by Id
+      description: Provide an Id to look up for specific Event
+      operationId: getEventById
+      produces:
+        - application/json
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          type: String
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Event'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  
+  /volunteer/reg:
+    post:
+      tags:
+        - Volunteer Registered
+      summary: Add Volunteer
+      description: Add the Registerd Volunteer Details (Participted & NonParticipted )
+      operationId: addAllVolunteer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/VolunteerRegistered'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VolunteerRegistered'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    get:
+      tags:
+        - Volunteer Registered
+      summary: Get Volunteers
+      description: get the Registerd Volunteer Details (Participted & NonParticipted )
+      operationId: getAllVolunteer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VolunteerRegistered'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false  
+  /volunteer/unreg:
+    post:
+      tags:
+        - Volunteer UnRegistered
+      summary: Add  UnVolunteers
+      description: Add the UnRegisterd Volunteer Details 
+      operationId: addAllUnVolunteer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          required: true
+          schema:
+            $ref: '#/definitions/VolunteerUnRegistered'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VolunteerUnRegistered'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    get:
+      tags:
+        - Volunteer UnRegistered 
+      summary: get UnVolunteer
+      description: Add the UnRegisterd Volunteer Details 
+      operationId: getAllUnRegVolunteer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VolunteerUnRegistered'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false  
+definitions:
+  Event:
+    type: object
+    properties:
+      event_id:
+        type: string
+      month:
+        type: string
+      base_location:
+        type: string
+      beneficiary_name:
+        type: string
+      venture_address:
+        type: string
+      council_name:
+        type: string
+      project:
+        type: string  
+      category:
+        type: string
+      event_name:
+         type: string
+      event_description:
+         type: string
+      event_date:
+        type: string
+        format: date
+      total_no_of_volunteers:
+        type: integer
+        format: int32
+      total_volunteer_hours:
+        type: integer
+        format: int32
+      total_travel_hours:
+        type: integer
+        format: int32
+      overall_volunteer_hours:
+        type: integer
+        format: int32
+      lives_impacted:
+        type: integer
+      activity_type:
+        type: integer
+      status:
+        type: string
+      poc_id:
+        type: integer
+        format: int32
+      poc_name:
+        type: string
+      poc_contact:
+        type: integer
+        format: int64
+    title: Event
+    
+  EventReport:
+    type: object
+    properties:
+      event_id:
+        type: string
+      base_location:
+        type: string
+      beneficiary_name:
+        type: string
+      council_name:
+        type: string
+      event_name:
+         type: string
+      event_description:
+         type: string
+      employee_id:
+         type: integer
+         format: int32
+      employee_name:
+         type: string
+      event_date:
+        type: string
+        format: date
+      volunteer_hours:
+        type: integer
+        format: int32
+      travel_hours:
+        type: integer
+        format: int32
+      lives_impacted:
+        type: integer
+      buisness_unit:
+         type: string
+      status:
+        type: string
+      iiep_category:
+        type: string
+    title: EventReport   
+  VolunteerRegistered:
+    type: object
+    properties:
+      event_id:
+        type: string
+      event_name:
+         type: string
+      beneficiary_name:
+        type: string
+      base_location:
+        type: string
+      event_date:
+        type: string
+        format: date
+      employee_id:
+        type: integer
+        format: int64
+    title: VolunteerRegistered
+    
+  VolunteerUnRegistered:
+    type: object
+    properties:
+      event_id:
+        type: string
+      event_name:
+         type: string
+      beneficiary_name:
+        type: string
+      base_location:
+        type: string
+      event_date:
+        type: string
+        format: date
+      employee_id:
+        type: integer
+        format: int64
+    title: VolunteerUnRegistered
